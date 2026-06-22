@@ -26,7 +26,7 @@ import PROJECT_IMG_4 from "../assets/images/project-4.png";
 import PROJECT_IMG_5 from "../assets/images/project-5.png";
 import PROJECT_IMG_6 from "../assets/images/project-6.png";
 import PROJECT_IMG_7 from "../assets/images/project-7.png";
-import PROFILE_PIC from "../assets/images/Kev.jpg";
+//import PROFILE_PIC from "../assets/images/Kev.jpg";
 
 export const SKILLS_CATEGORY = [
     {
