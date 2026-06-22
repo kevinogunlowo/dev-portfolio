@@ -117,6 +117,7 @@ const ChatBubble = () => {
     } finally {
       setIsLoading(false);
     }
+    console.log("KEY EXISTS:", !!import.meta.env.VITE_ANTHROPIC_API_KEY);
   };
 
   const handleKeyDown = (e) => {
