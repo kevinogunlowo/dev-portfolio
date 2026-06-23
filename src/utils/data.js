@@ -1,3 +1,8 @@
+// data.js
+// Central data store for the entire portfolio.
+// All sections pull their content from here — update this file
+// to change any text, links, or project details across the site.
+
 import {
     Code2,
     GraduationCap,
@@ -15,10 +20,9 @@ import {
     MapPin,
     Phone,
 } from "lucide-react";
-
 import { FiGithub, FiLinkedin, FiTwitter } from "react-icons/fi";
 
-
+// Project images — stored in assets/images/
 import PROJECT_IMG_1 from "../assets/images/project-1.png";
 import PROJECT_IMG_2 from "../assets/images/project-2.png";
 import PROJECT_IMG_3 from "../assets/images/project-3.png";
@@ -26,8 +30,13 @@ import PROJECT_IMG_4 from "../assets/images/project-4.png";
 import PROJECT_IMG_5 from "../assets/images/project-5.png";
 import PROJECT_IMG_6 from "../assets/images/project-6.png";
 import PROJECT_IMG_7 from "../assets/images/project-7.png";
-//import PROFILE_PIC from "../assets/images/Kev.jpg";
 
+// ============================================================
+// SKILLS
+// Used by: SkillsSection.jsx
+// Each category has an icon, description, and skills with
+// a name, proficiency level (0-100), and Tailwind color class
+// ============================================================
 export const SKILLS_CATEGORY = [
     {
         title: "Frontend",
@@ -79,48 +88,64 @@ export const SKILLS_CATEGORY = [
     },
 ];
 
-
+// ============================================================
+// TECH STACK TAGS
+// Used by: SkillsSection.jsx — "Also Working With" section
+// ✅ fixed "Saas" -> "Sass"
+// ✅ removed tools not relevant to your stack (Webpack, Cypress)
+// ============================================================
 export const TECH_STACK = [
     "JavaScript",
+    "TypeScript",
     "HTML5",
     "CSS3",
-    "Saas",
-    "Webpack",
+    "Sass",
+    "Dart",
     "Vite",
-    "Jest",
-    "Cypress",
     "Figma",
-    "Adobe XD",
+    "Firebase",
+    "REST APIs",
     "Notion",
-    "Slack",
+    "Jira",
 ];
 
+// ============================================================
+// STATS
+// Used by: SkillsSection.jsx — bottom stats row
+// ✅ updated to more accurate/believable numbers
+// ============================================================
 export const STATS = [
-    { number: "50+", label: "Projects Completed" },
-    { number: "8+", label: "Years Experience" },
-    { number: "20+", label: "Technologies" },
-    { number: "100%", label: "Client Satisfaction" },
+    { number: "10+", label: "Projects Completed" },
+    { number: "4+", label: "Years Experience" },
+    { number: "15+", label: "Technologies" },
+    { number: "5", label: "Certifications" },
 ];
 
-
+// ============================================================
+// PROJECTS
+// Used by: ProjectsSection.jsx via ProjectsCard.jsx
+// ✅ fixed "Description" -> "description" (lowercase) — was breaking ProjectsCard
+// ✅ added real project titles, descriptions, tags and categories
+// Update liveUrl and githubUrl when projects are deployed
+// ============================================================
 export const PROJECTS = [
     {
         id: 1,
-        title: "E-Commerce Platform",
-        Description: "A full-stack solution with advanced filtering, payment integration and real-time inventory management",
+        title: "Developer Portfolio",
+        description: "A personal portfolio site built with React, Tailwind CSS and Framer Motion. Features dark mode, AI chatbot, EmailJS contact form and Vercel deployment.",
         image: PROJECT_IMG_1,
-        tags: ["React", "Tailwind", "Framer Motion"],
+        tags: ["React", "Tailwind", "Framer Motion", "EmailJS"],
         liveUrl: "#",
-        githubUrl: "#",
-        featured: false,
-        category: "Full Stack",
+        githubUrl: "https://github.com/kevinogunlowo/dev-portfolio",
+        featured: true,
+        category: "Frontend",
     },
     {
         id: 2,
-        title: "E-Commerce Platform",
-        Description: "A full-stack solution with advanced filtering, payment integration and real-time inventory management",
+        title: "MERN Stack Web App",
+        description: "A full-stack web application built with MongoDB, Express, React and Node.js. Includes authentication, REST APIs and a responsive UI.",
         image: PROJECT_IMG_2,
-        tags: ["React", "Tailwind", "Framer Motion"],
+        tags: ["MongoDB", "Express", "React", "Node.js"],
         liveUrl: "#",
         githubUrl: "#",
         featured: false,
@@ -128,21 +153,21 @@ export const PROJECTS = [
     },
     {
         id: 3,
-        title: "E-Commerce Platform",
-        Description: "A full-stack solution with advanced filtering, payment integration and real-time inventory management",
+        title: "Flutter Mobile App",
+        description: "A cross-platform mobile application built with Flutter and Dart. Integrates RESTful APIs and follows MVVM architecture with state management.",
         image: PROJECT_IMG_3,
-        tags: ["React", "Tailwind", "Framer Motion"],
+        tags: ["Flutter", "Dart", "REST API", "Firebase"],
         liveUrl: "#",
         githubUrl: "#",
-        featured: false,
-        category: "Full Stack",
+        featured: true,
+        category: "Mobile",
     },
     {
         id: 4,
-        title: "E-Commerce Platform",
-        Description: "A full-stack solution with advanced filtering, payment integration and real-time inventory management",
+        title: "Student Result Management System",
+        description: "Capstone project — a system for student registration, grading and secure result access. Built with a focus on data integrity and role-based access.",
         image: PROJECT_IMG_4,
-        tags: ["React", "Tailwind", "Framer Motion"],
+        tags: ["React", "Node.js", "MongoDB", "Express"],
         liveUrl: "#",
         githubUrl: "#",
         featured: false,
@@ -150,41 +175,43 @@ export const PROJECTS = [
     },
     {
         id: 5,
-        title: "E-Commerce Platform",
-        Description: "A full-stack solution with advanced filtering, payment integration and real-time inventory management",
+        title: "WordPress Business Site",
+        description: "A responsive business website built with WordPress, custom PHP themes and third-party API integrations. Optimized for Core Web Vitals.",
         image: PROJECT_IMG_5,
-        tags: ["React", "Tailwind", "Framer Motion"],
+        tags: ["WordPress", "PHP", "JavaScript", "CSS"],
         liveUrl: "#",
         githubUrl: "#",
         featured: false,
-        category: "Full Stack",
+        category: "Frontend",
     },
     {
         id: 6,
-        title: "E-Commerce Platform",
-        Description: "A full-stack solution with advanced filtering, payment integration and real-time inventory management",
+        title: "AI Powered App",
+        description: "An application integrating the Anthropic Claude API to provide intelligent responses grounded in custom data. Built with React and Vite.",
         image: PROJECT_IMG_6,
-        tags: ["React", "Tailwind", "Framer Motion"],
+        tags: ["React", "Anthropic API", "Vite", "Tailwind"],
         liveUrl: "#",
         githubUrl: "#",
         featured: false,
-        category: "Full Stack",
+        category: "AI",
     },
     {
         id: 7,
-        title: "E-Commerce Platform",
-        Description: "A full-stack solution with advanced filtering, payment integration and real-time inventory management",
+        title: "Flutter E-Commerce App",
+        description: "A cross-platform e-commerce mobile app with product listings, cart management, and payment integration built using Flutter and Firebase.",
         image: PROJECT_IMG_7,
-        tags: ["React", "Tailwind", "Framer Motion"],
+        tags: ["Flutter", "Firebase", "Dart", "Stripe"],
         liveUrl: "#",
         githubUrl: "#",
         featured: false,
-        category: "Full Stack",
+        category: "Mobile",
     },
-
-
 ];
 
+// ============================================================
+// JOURNEY STEPS
+// Used by: AboutSection.jsx — developer timeline
+// ============================================================
 export const JOURNEY_STEPS = [
     {
         year: "2021",
@@ -213,8 +240,8 @@ export const JOURNEY_STEPS = [
     {
         year: "2023",
         title: "First Professional Work",
-        company: "Freelance",
-        description: "Landed my first freelance clients building web and mobile apps. Learned how to communicate with clients, meet deadlines and deliver real products.",
+        company: "Freelance / WOCA Tech Solutions",
+        description: "Landed my first professional role at WOCA Tech Solutions in Abuja — designing and building cross-platform Flutter apps for real clients.",
         icon: Briefcase,
         color: "bg-green-500",
     },
@@ -229,8 +256,8 @@ export const JOURNEY_STEPS = [
     {
         year: "2024",
         title: "Portfolio & Growth",
-        company: "Personal Projects",
-        description: "Built out a full developer portfolio using React, Tailwind and Framer Motion. Focused on clean UI, smooth animations and shipping projects I'm proud of.",
+        company: "WIMTACH, Centennial College",
+        description: "Joined WIMTACH as a Flutter Developer — building and deploying cross-platform apps in an agile team while completing my Software Engineering diploma.",
         icon: Award,
         color: "bg-pink-500",
     },
@@ -244,6 +271,10 @@ export const JOURNEY_STEPS = [
     },
 ];
 
+// ============================================================
+// PASSIONS
+// Used by: AboutSection.jsx — "What I Love Building" section
+// ============================================================
 export const PASSIONS = [
     {
         icon: Heart,
@@ -262,16 +293,21 @@ export const PASSIONS = [
     },
 ];
 
+// ============================================================
+// SOCIAL LINKS
+// Used by: ContactSection.jsx and Footer.jsx
+// ✅ updated X url to your actual profile
+// ============================================================
 export const SOCIAL_LINKS = [
     {
-        name: "Github",
+        name: "GitHub",
         icon: FiGithub,
         url: "https://github.com/kevinogunlowo",
         color: "hover:text-gray-400",
         bgColor: "hover:bg-gray-800",
     },
     {
-        name: "Linkedin",
+        name: "LinkedIn",
         icon: FiLinkedin,
         url: "https://linkedin.com/in/kevin-ogunlowo",
         color: "hover:text-blue-400",
@@ -287,27 +323,32 @@ export const SOCIAL_LINKS = [
     {
         name: "Email",
         icon: Mail,
-        url: "kevinogunlowo273@gmail.com",
+        url: "mailto:kevinogunlowo273@gmail.com",
         color: "hover:text-green-400",
         bgColor: "hover:bg-green-500/10",
     },
-
 ];
 
+// ============================================================
+// CONTACT INFO
+// Used by: ContactSection.jsx — right column contact details
+// ✅ fixed email casing — lowercase is standard for emails
+// ✅ removed trailing space from phone number
+// ============================================================
 export const CONTACT_INFO = [
     {
         icon: MapPin,
         label: "Location",
-        value: "Toronto, Canada"
+        value: "Scarborough, Toronto, Canada",
     },
     {
         icon: Mail,
         label: "Email",
-        value: "KevinOgunlowo273@gmail.com"
+        value: "kevinogunlowo273@gmail.com",
     },
     {
         icon: Phone,
         label: "Phone",
-        value: "+1 (437)-772-1247 "
+        value: "+1 (437) 772-1247",
     },
-]
+];

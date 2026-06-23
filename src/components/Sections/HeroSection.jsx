@@ -1,99 +1,100 @@
-import {
-    motion,
-    useScroll,
-    useTransform,
-} from "framer-motion";
-import {
-    ArrowDown,
-    Mail,
-} from "lucide-react";
+// HeroSection.jsx
+// Landing section with profile image, tagline, CTA buttons,
+// social links, and tech stack. Has separate mobile and desktop layouts.
+
+import { motion, useScroll, useTransform } from "framer-motion";
+import { ArrowDown, Mail } from "lucide-react";
 import { FiGithub, FiLinkedin } from "react-icons/fi";
 import { useTheme } from "../../context/ThemeContext";
-
 import PROFILE_PIC from "../../assets/images/Kev.jpg";
 import { containerVariants, itemVariants } from "../../utils/helper";
+
 const HeroSection = () => {
     const { isDarkMode } = useTheme();
 
+    // Tracks page scroll position for parallax effect
     const { scrollY } = useScroll();
+
+    // Moves the hero section up as user scrolls down — creates depth effect
     const heroY = useTransform(scrollY, [0, 500], [0, -100]);
 
+    // Smoothly scrolls to any section by ID
     const scrollToSection = (sectionId) => {
         const element = document.getElementById(sectionId);
         if (element) {
             element.scrollIntoView({ behavior: "smooth" });
-        };
-    }
+        }
+    };
 
-
-
-
-
-
+    // Animation for text elements — slides up and fades in
     const textVariants = {
         hidden: { y: 20, opacity: 0 },
         visible: {
             y: 0,
             opacity: 1,
-            transition: {
-                duration: 0.6,
-                ease: "easeOut",
-            },
+            transition: { duration: 0.6, ease: "easeOut" },
         },
     };
 
+    // Animation for profile image — slides in from right
     const imageVariants = {
         hidden: { x: 50, opacity: 0 },
         visible: {
             x: 0,
             opacity: 1,
-            transition: {
-                duration: 1,
-                ease: "easeOut",
-                delay: 0.5,
-            },
+            transition: { duration: 1, ease: "easeOut", delay: 0.5 },
         },
     };
+
+    // Social links used in both mobile and desktop layouts
+    // ✅ fixed Email href — added mailto: prefix
+    const socialLinks = [
+        { icon: FiGithub, href: "https://github.com/kevinogunlowo" },
+        { icon: FiLinkedin, href: "https://linkedin.com/in/kevin-ogunlowo" },
+        { icon: Mail, href: "mailto:kevinogunlowo273@gmail.com" },
+    ];
+
+    // Tech stack labels shown in both layouts
+    // ✅ updated to match your actual stack
+    const techStack = ["Flutter", "React", "TypeScript", "Python"];
+
     return (
-        <div className={`min-h-screen transition-all duration-500 ${isDarkMode ? "bg-gray-950 text-white" : "bg-gray-50 text-gray-900"
-            }`}
-        >
-            {/*Hero Section*/}
+        <div className={`min-h-screen transition-all duration-500 ${
+            isDarkMode ? "bg-gray-950 text-white" : "bg-gray-50 text-gray-900"
+        }`}>
+
+            {/* Hero Section with parallax scroll effect */}
             <motion.section
                 id="home"
                 style={{ y: heroY }}
                 className="min-h-screen flex items-center justify-center relative px-6 pt-10"
             >
+                {/* Animated background blobs */}
                 <div className="absolute inset-0 overflow-hidden">
+                    {/* Top right blob — rotates and scales */}
                     <motion.div
-                        animate={{
-                            scale: [1, 1.1, 1],
-                            rotate: [0, 180, 360],
-                        }}
-                        transition={{
-                            duration: 20,
-                            repeat: Infinity,
-                            ease: "linear",
-                        }}
-                        className={`absolute top-20 right-20 w-64 h-64 rounded-full blur-3xl opacity-10 ${isDarkMode ? "bg-blue-500" : "bg-blue-400"
-                            }`}
+                        animate={{ scale: [1, 1.1, 1], rotate: [0, 180, 360] }}
+                        transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                        className={`absolute top-20 right-20 w-64 h-64 rounded-full blur-3xl opacity-10 ${
+                            isDarkMode ? "bg-blue-500" : "bg-blue-400"
+                        }`}
                     />
+                    {/* Bottom left blob — rotates in reverse 
+                        ✅ fixed 'brown-20' typo -> 'bottom-20' */}
                     <motion.div
-                        animate={{
-                            scale: [1.1, 1, 1.1],
-                            rotate: [360, 180, 0],
-                        }}
-                        transition={{
-                            duration: 25,
-                            repeat: Infinity,
-                            ease: "linear",
-                        }}
-                        className={`absolute brown-20 left-20 w-48 h-48 rounded-full blur-3xl opacity-10 ${isDarkMode ? "bg-purple-500" : "bg-purple-400"
-                            }`}
+                        animate={{ scale: [1.1, 1, 1.1], rotate: [360, 180, 0] }}
+                        transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+                        className={`absolute bottom-20 left-20 w-48 h-48 rounded-full blur-3xl opacity-10 ${
+                            isDarkMode ? "bg-purple-500" : "bg-purple-400"
+                        }`}
                     />
                 </div>
+
                 <div className="max-w-7xl mx-auto w-full z-10 mt-20">
-                    {/*Mobile Layout - Centered*/}
+
+                    {/* ============================================
+                        MOBILE LAYOUT — visible below lg breakpoint
+                        ============================================ */}
                     <div className="block lg:hidden">
                         <motion.div
                             initial="hidden"
@@ -101,79 +102,83 @@ const HeroSection = () => {
                             variants={containerVariants}
                             className="text-center"
                         >
-                            {/*Profile Image - Mobile*/}
+                            {/* Profile Image — Mobile */}
                             <motion.div variants={imageVariants} className="mb-8">
                                 <div className="w-32 h-32 mx-auto relative">
                                     <motion.div
                                         whileHover={{ scale: 1.05 }}
-                                        className={`w-full h-32 rounded-2xl overflow-hidden border-4 ${isDarkMode ? "border-gray-800" : "border-gray-300"
-                                            }shadow-2xl`}
+                                        // ✅ fixed missing space before shadow-2xl
+                                        className={`w-full h-32 rounded-2xl overflow-hidden border-4 ${
+                                            isDarkMode ? "border-gray-800" : "border-gray-300"
+                                        } shadow-2xl`}
                                     >
                                         <img
                                             src={PROFILE_PIC}
-                                            alt="Profile"
+                                            alt="Kevin Ogunlowo"
                                             className="w-full h-full object-cover"
                                         />
                                     </motion.div>
-                                    {/*Decorative ring*/}
+
+                                    {/* Decorative rotating rings around image */}
                                     <motion.div
                                         animate={{ rotate: 360 }}
-                                        transition={{
-                                            duration: 20,
-                                            repeat: Infinity,
-                                            ease: "linear",
-                                        }}
+                                        transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
                                         className="absolute inset-2 rounded-2xl border border-blue-500/20"
                                     />
                                     <motion.div
                                         animate={{ rotate: -360 }}
-                                        transition={{
-                                            duration: 30,
-                                            repeat: Infinity,
-                                            ease: "linear",
-                                        }}
-                                        className="absolute -inset-8 rounded-3xl border-purple-500/10"
+                                        transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+                                        className="absolute -inset-8 rounded-3xl border border-purple-500/10"
                                     />
-
-
                                 </div>
                             </motion.div>
-                            {/*Content - Mobile*/}
+
+                            {/* Role label */}
                             <motion.div
                                 variants={textVariants}
-                                className={`text-sm uppercase tracking-widget ${isDarkMode ? "text-gray-500" : "text-gray-600"
-                                    } mb-4`}
+                                // ✅ fixed 'tracking-widget' -> 'tracking-widest'
+                                className={`text-sm uppercase tracking-widest ${
+                                    isDarkMode ? "text-gray-500" : "text-gray-600"
+                                } mb-4`}
                             >
-                                Full Stack Developer
+                                Software Engineer
                             </motion.div>
+
+                            {/* Main heading 
+                                ✅ fixed 'Digial' -> 'Digital' */}
                             <motion.h1
                                 variants={itemVariants}
                                 className="text-3xl md:text-5xl font-light mb-6 leading-tight"
                             >
-                                <span
-                                    className={`${isDarkMode ? "text-white" : "text-gray-900"}`}
-                                >
-                                    Building Digial Solutions
+                                <span className={isDarkMode ? "text-white" : "text-gray-900"}>
+                                    Building Digital Solutions
                                 </span>
                                 <span className="text-blue-500 font-medium ml-2">
-                                    Experience
+                                    &
                                 </span>
                                 <br />
                                 <span className={isDarkMode ? "text-white" : "text-gray-900"}>
-                                    that matter
+                                    Experiences that matter
                                 </span>
                             </motion.h1>
+
+                            {/* Subheading 
+                                ✅ fixed 'Experience' -> 'experiences' */}
                             <motion.p
                                 variants={itemVariants}
-                                className={`text-base md:text-lg ${isDarkMode ? "text-gray-400" : "text-gray-600"
-                                    } mb-8 max-w-xl mx-auto font-light leading-relaxed`}
+                                className={`text-base md:text-lg ${
+                                    isDarkMode ? "text-gray-400" : "text-gray-600"
+                                } mb-8 max-w-xl mx-auto font-light leading-relaxed`}
                             >
-                                I craft beautiful, functional web applications with modern technologies and thoughtful user Experience
+                                I craft beautiful, functional applications with modern
+                                technologies and thoughtful user experiences.
                             </motion.p>
-                            {/*CTA Buttons - Mobile*/}
+
+                            {/* CTA Buttons — Mobile
+                                ✅ fixed 'felx-col' -> 'flex-col' */}
                             <motion.div
                                 variants={itemVariants}
-                                className="flex felx-col sm:flex-row gap-4 justify-center items-center mb-8"
+                                className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8"
                             >
                                 <motion.button
                                     whileHover={{ y: -2 }}
@@ -187,174 +192,167 @@ const HeroSection = () => {
                                     whileHover={{ y: -2 }}
                                     whileTap={{ scale: 0.98 }}
                                     onClick={() => scrollToSection("contact")}
-                                    className={`border ${isDarkMode
-                                        ? "border-gray-700 hover:border-gray-600 text-gray-300"
-                                        : "border-gray-300 hover:border-gray-400 text-gray-700"
-                                        } px-8 py-3 rounded-full text-sm uppercase tracking-wider font-medium transition-all duration-300`}
+                                    className={`border ${
+                                        isDarkMode
+                                            ? "border-gray-700 hover:border-gray-600 text-gray-300"
+                                            : "border-gray-300 hover:border-gray-400 text-gray-700"
+                                    } px-8 py-3 rounded-full text-sm uppercase tracking-wider font-medium transition-all duration-300`}
                                 >
                                     Get in Touch
                                 </motion.button>
                             </motion.div>
 
-                            {/*Social Links - Mobile*/}
+                            {/* Social Links — Mobile */}
                             <motion.div
                                 variants={itemVariants}
                                 className="flex justify-center space-x-6 mb-8"
                             >
-                                {[
-                                    { icon: FiGithub, href: "https://github.com/kevinogunlowo" },
-                                    { icon: FiLinkedin, href: "https://linkedin.com/in/kevin-ogunlowo" },
-                                    { icon: Mail, href: "kevinogunlowo273@gmail.com" },
-                                ].map((social, index) => (
+                                {socialLinks.map((social, index) => (
                                     <motion.a
                                         key={index}
                                         href={social.href}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
                                         whileHover={{ y: -3, scale: 1.1 }}
-                                        className={`p-3 rounded-full transition-colors ${isDarkMode
-                                            ? "text-gray-400 hover:text-white hover:bg-gray-800"
-                                            : "text-gray-600 hover:text-gray-900 hover:bg-gray-200"
-                                            }`}
+                                        className={`p-3 rounded-full transition-colors ${
+                                            isDarkMode
+                                                ? "text-gray-400 hover:text-white hover:bg-gray-800"
+                                                : "text-gray-600 hover:text-gray-900 hover:bg-gray-200"
+                                        }`}
                                     >
                                         <social.icon size={20} />
                                     </motion.a>
                                 ))}
                             </motion.div>
-                            {/*Tech Stack - Mobile*/}
+
+                            {/* Tech Stack — Mobile
+                                ✅ fixed 'test-xs' -> 'text-xs'
+                                ✅ extracted to reusable array above */}
                             <motion.div
                                 variants={itemVariants}
-                                className="flex justify-center items-center space-x-6 test-xs uppercase tracking-widest flex-wrap"
+                                className="flex justify-center items-center space-x-4 text-xs uppercase tracking-widest flex-wrap"
                             >
-                                <span
-                                    className={isDarkMode ? "text-gray-600" : "text-gray-500"}
-                                >
-                                    React
-                                </span>
-                                <span
-                                    className={isDarkMode ? "text-gray-700" : "text-gray-400"}
-                                >
-                                    .
-                                </span>
-                                <span
-                                    className={isDarkMode ? "text-gray-600" : "text-gray-500"}
-                                >
-                                    Node.js
-                                </span>
-                                <span
-                                    className={isDarkMode ? "text-gray-700" : "text-gray-400"}
-                                >
-                                    .
-                                </span>
-                                <span
-                                    className={isDarkMode ? "text-gray-600" : "text-gray-500"}
-                                >
-                                    TypeScript
-                                </span>
-                                <span
-                                    className={isDarkMode ? "text-gray-700" : "text-gray-400"}
-                                >
-                                    .
-                                </span>
-                                <span
-                                    className={isDarkMode ? "text-gray-600" : "text-gray-500"}
-                                >
-                                    MongoDB
-                                </span>
+                                {techStack.map((tech, index) => (
+                                    <>
+                                        <span
+                                            key={tech}
+                                            className={isDarkMode ? "text-gray-600" : "text-gray-500"}
+                                        >
+                                            {tech}
+                                        </span>
+                                        {/* Dot separator — hide after last item */}
+                                        {index < techStack.length - 1 && (
+                                            <span className={isDarkMode ? "text-gray-700" : "text-gray-400"}>
+                                                .
+                                            </span>
+                                        )}
+                                    </>
+                                ))}
                             </motion.div>
                         </motion.div>
                     </div>
-                    {/*Desktop Layout - Split*/}
+
+                    {/* =============================================
+                        DESKTOP LAYOUT — visible at lg breakpoint+
+                        ============================================= */}
                     <div className="hidden lg:grid lg:grid-cols-2 lg:gap-16 lg:items-center">
-                        {/*Left Column - Content */}
+
+                        {/* Left Column — Text Content */}
                         <motion.div
                             initial="hidden"
                             animate="visible"
                             variants={containerVariants}
                             className="text-left"
                         >
+                            {/* Role label 
+                                ✅ fixed missing space before mb-6 */}
                             <motion.div
                                 variants={textVariants}
-                                className={`text-sm uppercase tracking-widest ${isDarkMode ? "text-gray-500" : "text-gray-600"
-                                    }mb-6`}
+                                className={`text-sm uppercase tracking-widest ${
+                                    isDarkMode ? "text-gray-500" : "text-gray-600"
+                                } mb-6`}
                             >
-                                Full Stack Developer
+                                Software Engineer
                             </motion.div>
 
-
+                            {/* Main heading */}
                             <motion.h1
                                 variants={itemVariants}
                                 className="text-5xl xl:text-7xl font-light mb-8 leading-tight"
                             >
-                                <span
-                                    className={`${isDarkMode ? "text-white" : "text-gray-900"}`}
-                                >
+                                <span className={isDarkMode ? "text-white" : "text-gray-900"}>
                                     Building digital
                                 </span>
                                 <br />
                                 <span className="text-blue-500 font-medium">experiences</span>
                                 <br />
                                 <span className={isDarkMode ? "text-white" : "text-gray-900"}>
-                                    that matters
+                                    that matter
                                 </span>
-
                             </motion.h1>
+
+                            {/* Subheading 
+                                ✅ fixed 'apploicatiions' and 'thoghful' typos */}
                             <motion.p
                                 variants={itemVariants}
-                                className={`text-xl ${isDarkMode ? "text-gray-400" : "text-gray-600"
-                                    } mb-12 font-light leading-relaxed max-w-lg`}
+                                className={`text-xl ${
+                                    isDarkMode ? "text-gray-400" : "text-gray-600"
+                                } mb-12 font-light leading-relaxed max-w-lg`}
                             >
-                                I craft beautiful, functional web apploicatiions with modern technologies and thoghful user experiences.
+                                I craft beautiful, functional applications with modern
+                                technologies and thoughtful user experiences.
                             </motion.p>
-                            {/*CTA Buttons - DeskTop*/}
-                            <motion.div variants={itemVariants} className="text gap-6 mb-8">
+
+                            {/* CTA Buttons — Desktop
+                                ✅ fixed 'className="text gap-6"' -> 'className="flex gap-6"' */}
+                            <motion.div variants={itemVariants} className="flex gap-6 mb-8">
                                 <motion.button
                                     whileHover={{ y: -2 }}
                                     whileTap={{ scale: 0.98 }}
                                     onClick={() => scrollToSection("work")}
                                     className="bg-blue-500 hover:bg-blue-600 text-white px-8 py-4 rounded-full text-sm uppercase tracking-wider font-medium transition-all duration-300"
                                 >
-                                    View Works
+                                    View Work
                                 </motion.button>
-
                                 <motion.button
                                     whileHover={{ y: -2 }}
                                     whileTap={{ scale: 0.98 }}
                                     onClick={() => scrollToSection("contact")}
-                                    className={`border ${isDarkMode
-                                        ? "border-gray-700 hover:border-gray-600 text-gray-300"
-                                        : "border-gray-300 hover:border-gray-400 text-gray-700"
-                                        } px-8 py-4 rounded-full text-sm uppercase tracking-wider font-medium transition-all duration-300`}
+                                    className={`border ${
+                                        isDarkMode
+                                            ? "border-gray-700 hover:border-gray-600 text-gray-300"
+                                            : "border-gray-300 hover:border-gray-400 text-gray-700"
+                                    } px-8 py-4 rounded-full text-sm uppercase tracking-wider font-medium transition-all duration-300`}
                                 >
                                     Get in Touch
                                 </motion.button>
-
                             </motion.div>
-                            {/*Social Links -Desktop*/}
+
+                            {/* Social Links — Desktop */}
                             <motion.div
                                 variants={itemVariants}
                                 className="flex space-x-6 mb-12"
                             >
-                                {[
-                                    { icon: FiGithub, href: "https://github.com/kevinogunlowo" },
-                                    { icon: FiLinkedin, href: "https://linkedin.com/in/kevin-ogunlowo" },
-                                    { icon: Mail, href: "kevinogunlowo273@gmail.com" },
-                                ].map((social, index) => (
+                                {socialLinks.map((social, index) => (
                                     <motion.a
                                         key={index}
                                         href={social.href}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
                                         whileHover={{ y: -3, scale: 1.1 }}
-                                        className={`p-3 rounded-full transition-colors ${isDarkMode
-                                            ? "text-gray-400 hover:text-white hover:bg-gray-800"
-                                            : "text-gray-600 hover:text-gray-900 hover:bg-gray-200"
-                                            }`}
+                                        className={`p-3 rounded-full transition-colors ${
+                                            isDarkMode
+                                                ? "text-gray-400 hover:text-white hover:bg-gray-800"
+                                                : "text-gray-600 hover:text-gray-900 hover:bg-gray-200"
+                                        }`}
                                     >
                                         <social.icon size={20} />
                                     </motion.a>
                                 ))}
-
                             </motion.div>
                         </motion.div>
 
-                        {/*Right Column - Profile Images */}
+                        {/* Right Column — Profile Image */}
                         <motion.div
                             initial="hidden"
                             animate="visible"
@@ -362,79 +360,60 @@ const HeroSection = () => {
                             className="flex justify-center lg:justify-end"
                         >
                             <div className="relative">
-                                {/*Tech Stack -Desktop*/}
+
+                                {/* Tech Stack — Desktop */}
                                 <motion.div
                                     variants={itemVariants}
-                                    className="flex items-center space-x-8 text-xs uppercase tracking-widest absolute -top-16 -left-28"
+                                    className="flex items-center space-x-4 text-xs uppercase tracking-widest absolute -top-16 -left-28"
                                 >
-                                    <span
-                                        className={isDarkMode ? "text-gray-600" : "text-gray-500"}
-                                    >
-                                        React
-                                    </span>
-                                    <span
-                                        className={isDarkMode ? "text-gray-700" : "text-gray-400"}
-                                    >
-                                        .
-                                    </span>
-                                    <span className={isDarkMode ? "text-gray-600" : "text-gray-500"}
-
-                                    >
-                                        Node.js
-                                    </span>
-                                    <span className={isDarkMode ? "text-gray-700" : "text-gray-400"}
-                                    >
-                                        .
-                                    </span>
-                                    <span className={isDarkMode ? "text-gray-600" : "text-gray-500"}
-                                    >
-                                        TypeScript
-                                    </span>
-                                    <span className={isDarkMode ? "text-gray-700" : "text-gray-400"}
-                                    >
-                                        .
-                                    </span>
-                                    <span className={isDarkMode ? "text-gray-600" : "text-gray-500"}
-                                    >
-                                        MongoDB
-                                    </span>
+                                    {techStack.map((tech, index) => (
+                                        <>
+                                            <span
+                                                key={tech}
+                                                className={isDarkMode ? "text-gray-600" : "text-gray-500"}
+                                            >
+                                                {tech}
+                                            </span>
+                                            {index < techStack.length - 1 && (
+                                                <span className={isDarkMode ? "text-gray-700" : "text-gray-400"}>
+                                                    .
+                                                </span>
+                                            )}
+                                        </>
+                                    ))}
                                 </motion.div>
 
+                                {/* Profile Image */}
                                 <motion.div
                                     whileHover={{ scale: 1.02 }}
-                                    className={`w-80 h-96 rounded-3xl overflow-hidden border-4 ${isDarkMode ? "border-gray-800" : "border-gray-300"
-                                        } shadow-2xl`}
+                                    className={`w-80 h-96 rounded-3xl overflow-hidden border-4 ${
+                                        isDarkMode ? "border-gray-800" : "border-gray-300"
+                                    } shadow-2xl`}
                                 >
                                     <img
                                         src={PROFILE_PIC}
-                                        alt="Profile"
+                                        alt="Kevin Ogunlowo"
                                         className="w-full h-full object-cover"
                                     />
                                 </motion.div>
-                                {/*Decorative Elements*/}
+
+                                {/* Decorative rotating rings around image */}
                                 <motion.div
                                     animate={{ rotate: 360 }}
-                                    transition={{
-                                        duration: 20,
-                                        repeat: Infinity,
-                                        ease: "linear",
-                                    }}
+                                    transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
                                     className="absolute -inset-4 rounded-3xl border border-blue-500/20"
                                 />
                                 <motion.div
                                     animate={{ rotate: -360 }}
-                                    transition={{
-                                        duration: 30,
-                                        repeat: Infinity,
-                                        ease: "linear",
-                                    }}
-                                    className="absolute -inset-8 rounded-3xl border-purple-500/10"
+                                    transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+                                    className="absolute -inset-8 rounded-3xl border border-purple-500/10"
                                 />
                             </div>
                         </motion.div>
                     </div>
                 </div>
-                {/*Scroll Indicator*/}
+
+                {/* Scroll indicator — bounces up and down to prompt scrolling */}
                 <motion.div
                     animate={{ y: [0, 8, 0] }}
                     transition={{ duration: 2, repeat: Infinity }}
@@ -446,7 +425,8 @@ const HeroSection = () => {
                     />
                 </motion.div>
             </motion.section>
-        </div >
+        </div>
     );
 };
+
 export default HeroSection;
