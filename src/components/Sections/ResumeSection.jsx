@@ -52,8 +52,8 @@ const ResumeSection = () => {
     className="inline-block"
 >
     <a
-        href="/Kevin_Ogunlowo_Resume.pdf"
-        download="Kevin_Ogunlowo_Resume.pdf"
+        href="/KevinOgunlowo1.pdf"
+        download="KevinOgunlowo1.pdf"
         className={`inline-flex items-center space-x-2 px-10 py-4 rounded-full text-sm tracking-widest uppercase transition-all duration-300 border ${
             isDarkMode
                 ? "border-gray-600 text-white hover:border-blue-500 hover:text-blue-400"
